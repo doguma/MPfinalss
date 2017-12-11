@@ -1,14 +1,22 @@
-import { Component } from '@angular/core';
-import { Platform } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { Platform, Nav } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
-import { HomePage } from '../pages/home/home';
+import { FriendsPage } from '../pages/friends/friends';
+import { HonorCodePage } from '../pages/honor-code/honor-code';
+
+
+import { EditMembersPage } from '../pages/edit-members/edit-members';
+
+
+
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
-  rootPage:any = HomePage;
+  @ViewChild(Nav) navCtrl: Nav;
+    rootPage:any = EditMembersPage;
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
     platform.ready().then(() => {
@@ -18,5 +26,14 @@ export class MyApp {
       splashScreen.hide();
     });
   }
+  goToEditMembers(params){
+    if (!params) params = {};
+    this.navCtrl.setRoot(EditMembersPage);
+  }goToFriends(params){
+    if (!params) params = {};
+    this.navCtrl.setRoot(FriendsPage);
+  }goToHonorCode(params){
+    if (!params) params = {};
+    this.navCtrl.setRoot(HonorCodePage);
+  }
 }
-

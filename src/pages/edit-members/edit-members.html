@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>
+      Edit Members
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content padding id="page1">
+    <ion-list>
+  <ion-buttons block>
+    <button ion-button icon-left (click) = "addItem()">
+      + Add Member
+    </button>
+  </ion-buttons>
+
+  My family
+</ion-list>
+  <ion-list>
+    <ion-item *ngFor="let task of tasks">
+      {{task.name}} / {{task.phone_number}}
+    </ion-item>
+  </ion-list>
+
+
+</ion-content>
