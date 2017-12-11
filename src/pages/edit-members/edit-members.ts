@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController, AlertController } from 'ionic-angular';
 
+import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
+
 
 @Component({
   selector: 'page-edit-members',
@@ -8,18 +10,21 @@ import { NavController, AlertController } from 'ionic-angular';
 })
 export class EditMembersPage {
 
-  tasks: Array<any> = [];
+  s;
+  public tasks: Array<any>;
+  public tasklist: Array<any>;
+
   name: string = '';
 
-  constructor(public navCtrl: NavController, private alertController: AlertController) {
+  constructor(public navCtrl: NavController, private alertController: AlertController, public db: AngularFireDatabase) {
 
-this.initializeTasks();
-
+    this.s = this.db.list('/friends').subscribe(data => {
+      this.tasks = data;
+      this.tasklist = data;
+    })
   }
 
-
   addItem() {
-
     let newTasks: Array<any> = [];
     let alert = this.alertController.create({
       title: "Add a Member",
@@ -49,50 +54,46 @@ this.initializeTasks();
         {
           text: 'ADD',
           handler: data => {
-              this.tasks.push({ name: data.name, phone_number: data.phoneNumber, address: data.address})
+            this.db.list('/friends').push({
+              name: data.name,
+              phone_number: data.phoneNumber,
+              address: data.address
+            })
           }
         }]
     });
     alert.present();
   }
 
-  removeTask(task: any){
-    let index = this.tasks.indexOf(task);
-    if (index > -1){
-      this.tasks.splice(index, 1);
-    }
+  removeTask(key) {
+    this.db.list(`/friends/`).remove(key);
   }
 
   searchQuery: string = '';
-  
-  initializeTasks(){
-    this.tasks = [
-      { name: 'Father', phone_number: '010-1234-0000', address: '경북 포항시 북구 흥해읍 한동로 558 한동대학교 벧엘관' },
-      { name: 'Mother', phone_number: '010-1234-0001', address: '경북 포항시 북구 흥해읍 한동로 558 한동대학교 은혜관' },
-      { name: 'Sister', phone_number: '010-1234-0002', address: '경북 포항시 북구 흥해읍 한동로 558 한동대학교 창조관' },
-      { name: 'Brother', phone_number: '010-1234-0003', address: '경북 포항시 북구 흥해읍 한동로 558 한동대학교 비전관' }
-    ];
+
+  initializeTasks() {
+    this.tasks = this.tasklist;
   }
 
-  getTasks(searchbar){
+  getTasks(searchbar) {
     this.initializeTasks();
 
     var q = searchbar.srcElement.value;
 
 
-    if(!q){
+    if (!q) {
       return;
     }
 
-  this.tasks = this.tasks.filter((v) => {
-    if(v.name && q) {
-      if (v.name.toLowerCase().indexOf(q.toLowerCase()) > -1) {
-        return true;
+    this.tasks = this.tasks.filter((v) => {
+      if (v.name && q) {
+        if (v.name.toLowerCase().indexOf(q.toLowerCase()) > -1) {
+          return true;
+        }
+        return false;
       }
-      return false;
-    }
-  });
+    });
 
 
-}
+  }
 }
