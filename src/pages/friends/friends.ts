@@ -65,4 +65,11 @@ export class FriendsPage {
         alert.present();
       }
 
+
+
+      deleteItem(key){
+
+       this.af.list(`/tasks/`).remove(key);
+           }
+
 }

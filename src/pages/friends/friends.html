@@ -3,13 +3,14 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
+
     <ion-title>
       Friends
-      <ion-buttons block>
-          <button ion-button icon-right (click) = "addItem()">
-            PUSH
-          </button>
-        </ion-buttons>
+
+      <button ion-button icon-right (click) = "addItem()">
+          PUSH
+        </button>
+
     </ion-title>
 
   </ion-navbar>
@@ -27,7 +28,7 @@
           <br/>
           <br/>
           <ion-buttons>
-              <button ion-button icon-right (click) = "deleteItem()">
+              <button ion-button icon-right (click) = "deleteItem(this.friend)">
                 DELETE
               </button>
             </ion-buttons>
