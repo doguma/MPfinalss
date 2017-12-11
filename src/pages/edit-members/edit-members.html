@@ -6,6 +6,9 @@
     <ion-title>
       Edit Members
     </ion-title>
+
+    <ion-searchbar (ionInput)="getTasks($event)"></ion-searchbar>
+
   </ion-navbar>
 </ion-header>
 <ion-content padding id="page1">
@@ -20,8 +23,12 @@
 </ion-list>
   <ion-list>
     <ion-item *ngFor="let task of tasks">
+        <button ion-button icon-only (click) = "removeTask(task)">
+            <ion-icon name = "trash"></ion-icon>
+            </button>
       {{task.name}} / {{task.phone_number}}
     </ion-item>
+
   </ion-list>
 
 

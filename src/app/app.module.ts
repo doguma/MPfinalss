@@ -10,6 +10,20 @@ import { HonorCodePage } from '../pages/honor-code/honor-code';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
+
+
+export const firebaseConfig = {
+  apiKey: "AIzaSyBU7eBhOAiJroOdREgEFl9QNnNCgf7O_-g",
+  authDomain: "mpfinalss.firebaseapp.com",
+  databaseURL: "https://mpfinalss.firebaseio.com",
+  projectId: "mpfinalss",
+  storageBucket: "mpfinalss.appspot.com",
+  messagingSenderId: "746464662393"
+};
+
+
 @NgModule({
   declarations: [
     MyApp,
@@ -19,7 +33,9 @@ import { SplashScreen } from '@ionic-native/splash-screen';
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFireDatabaseModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

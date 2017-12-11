@@ -5,7 +5,36 @@
     </button>
     <ion-title>
       Friends
+      <ion-buttons block>
+          <button ion-button icon-right (click) = "addItem()">
+            PUSH
+          </button>
+        </ion-buttons>
     </ion-title>
+
   </ion-navbar>
 </ion-header>
-<ion-content padding id="page2"></ion-content>
+<ion-content padding id="page2">
+<ion-card>
+    <ion-slides pager>
+        <ion-slide block padding *ngFor="let friend of friends">
+          {{friend.name}}
+          <br/><br/>
+          {{friend.phone_number}}
+          <br/>
+          {{friend.address}}
+          <br/>
+          <br/>
+          <br/>
+          <ion-buttons>
+              <button ion-button icon-right (click) = "deleteItem()">
+                DELETE
+              </button>
+            </ion-buttons>
+
+        </ion-slide>
+
+      </ion-slides>
+    </ion-card>
+
+</ion-content>
